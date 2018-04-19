@@ -14,20 +14,13 @@ let imagem = document.querySelector('#slide');
 let botaoAnterior = document.querySelector('#anterior');
 let botaoProximo = document.querySelector('#proximo');
 
-botaoAnterior.addEventListener('click', () => {
-  let posicao = todasAsImagens.indexOf(imagem.getAttribute('src').split('/').pop()) - 1;
-  if (posicao < 0) {
-    posicao = todasAsImagens.length - 1;
-  }
+let trocaImagem = (valor) => {
+  debugger;
+  let posicao = todasAsImagens.indexOf(imagem.getAttribute('src').split('/').pop()) + valor;
+  posicao = (posicao + todasAsImagens.length) % todasAsImagens.length;
   let enderecoDaImagem = servidorDasImagens + todasAsImagens[posicao];
   imagem.setAttribute('src', enderecoDaImagem);
-});
+};
 
-botaoProximo.addEventListener('click', () => {
-  let posicao = todasAsImagens.indexOf(imagem.getAttribute('src').split('/').pop()) + 1;
-  if (posicao >= todasAsImagens.length) {
-    posicao = 0;
-  }
-  let enderecoDaImagem = servidorDasImagens + todasAsImagens[posicao];
-  imagem.setAttribute('src', enderecoDaImagem);
-});
+botaoAnterior.addEventListener('click', () => trocaImagem(-1));
+botaoProximo.addEventListener('click', () => trocaImagem(1));
